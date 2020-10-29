@@ -1,0 +1,24 @@
+{
+    "name": "mrssoft/yii2-sms",
+    "version": "1.0.0",
+    "description": "Extension for sending SMS",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension", "sms", "mts", "tele2"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Melnikov Ruslan",
+            "email": "mrs2000@inbox.ru"
+        }
+    ],
+    "require": {
+        "php": ">=7.1",
+        "yiisoft/yii2": "*",
+        "guzzlehttp/guzzle": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "mrssoft\\sms\\": ""
+        }
+    }
+}
