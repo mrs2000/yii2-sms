@@ -3,7 +3,7 @@ yii2-sms
 
 Extension for sending SMS
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/mrssoftyii2-sms.svg)](https://packagist.org/packages/mrssoft/yii2-sms)
+[![Latest Stable Version](https://img.shields.io/packagist/v/mrssoft/yii2-sms.svg)](https://packagist.org/packages/mrssoft/yii2-sms)
 ![PHP](https://img.shields.io/packagist/php-v/mrssoft/yii2-sms.svg)
 ![Total Downloads](https://img.shields.io/packagist/dt/mrssoft/yii2-sms.svg)
 
