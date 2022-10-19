@@ -4,6 +4,6 @@ namespace mrssoft\sms;
 
 class Response
 {
-    public $error;
-    public $id;
+    public ?string $error = null;
+    public ?string $id = null;
 }

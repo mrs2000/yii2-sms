@@ -11,25 +11,16 @@ use mrssoft\sms\Response;
  */
 class Sms extends \mrssoft\sms\Sms
 {
-    /**
-     * @var string
-     */
-    public $login;
+    public string $login;
+    public string $password;
+    public string $naming;
+    public string $apiUrl = 'https://target.tele2.ru/api/v2/';
 
     /**
-     * @var string
+     * Timeout, seconds
+     * @var int
      */
-    public $password;
-
-    /**
-     * @var string
-     */
-    public $apiUrl = 'https://target.tele2.ru/api/v2/';
-
-    /**
-     * @var string
-     */
-    public $naming;
+    public int $timeout = 0;
 
     /**
      * The SendMessage function allows you to send a message to a subscriber connected to the service.
@@ -74,7 +65,9 @@ class Sms extends \mrssoft\sms\Sms
 
         $httpResponse = $client->request('POST', $this->apiUrl . $function, [
             'json' => $params,
-            'auth' => [$this->login,  $this->password]
+            'auth' => [$this->login,  $this->password],
+            'timeout' => $this->timeout,
+            'verify' => false,
         ]);
 
         if ($httpResponse->getStatusCode() == 200) {

@@ -15,7 +15,7 @@ class TestBase extends \PHPUnit\Framework\TestCase
         return json_decode(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . $filename), true);
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->params = $this->loadParams('params.json');
         $this->driverParams = $this->loadParams('params.' . $this->driver . '.json');
@@ -27,6 +27,6 @@ class TestBase extends \PHPUnit\Framework\TestCase
         $api = new $driver($this->driverParams);
         $response = $api->sendMessage('Test ' . random_int(1, 1000), $this->params['phone'], $this->params['naming']);
 
-        self::assertAttributeEmpty('error', $response);
+        self::assertEmpty($response->error);
     }
 }

@@ -31,7 +31,7 @@ Usage
 
 Configuration:
 
-```
+```php
 'components' => [
     ...
     'sms' => [
@@ -52,7 +52,7 @@ Configuration:
 
 Usage:
 
-```
+```php
 Yii::$app->sms->sendMessage('Message', '79830000000');
 Yii::$app->sms->sendMessages('Message', ['79830000000', '79830000001']);
 ```

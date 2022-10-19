@@ -12,25 +12,13 @@ use SoapFault;
  */
 class Sms extends \mrssoft\sms\Sms
 {
-    /**
-     * @var string
-     */
-    public $token;
+    public string $token;
 
-    /**
-     * @var string
-     */
-    public $wsdlUrl = 'http://www.mcommunicator.ru/m2m/m2m_api.asmx?WSDL';
+    public string $wsdlUrl = 'https://www.mcommunicator.ru/m2m/m2m_api.asmx?WSDL';
 
-    /**
-     * @var string
-     */
-    public $naming;
+    public string $naming;
 
-    /**
-     * @var SoapClient
-     */
-    private $client;
+    private SoapClient $client;
 
     public function init()
     {
@@ -82,7 +70,6 @@ class Sms extends \mrssoft\sms\Sms
         return $this->request('SendMessages', $params);
     }
 
-    /** @noinspection PhpRedundantCatchClauseInspection */
     private function request(string $function, array $params): Response
     {
         $response = new Response();

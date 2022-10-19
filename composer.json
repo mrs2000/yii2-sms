@@ -1,6 +1,6 @@
 {
     "name": "mrssoft/yii2-sms",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Extension for sending SMS",
     "type": "yii2-extension",
     "keywords": ["yii2","extension", "sms", "mts", "tele2"],
@@ -12,7 +12,7 @@
         }
     ],
     "require": {
-        "php": ">=7.1",
+        "php": ">=8.0",
         "yiisoft/yii2": "*",
         "guzzlehttp/guzzle": "^7.0"
     },
