@@ -9,7 +9,7 @@ use mrssoft\sms\Response;
  * Extension for sending SMS through Tele2 SMS-Таргет HTTP API
  * @version 1.0.0
  */
-class Sms extends \mrssoft\sms\Sms
+final class Sms extends \mrssoft\sms\Sms
 {
     public string $login;
     public string $password;
@@ -58,6 +58,7 @@ class Sms extends \mrssoft\sms\Sms
         return $result;
     }
 
+    /** @noinspection PhpSameParameterValueInspection */
     private function request(string $function, array $params): Response
     {
         $response = new Response();

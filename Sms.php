@@ -16,7 +16,7 @@ abstract class Sms extends Component
         if (mb_strlen($phone) === 10) {
             return '7' . $phone;
         }
-        if (mb_strpos($phone, '8') === 0) {
+        if (str_starts_with($phone, '8')) {
             return '7' . mb_substr($phone, 1);
         }
         return $phone;

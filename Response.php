@@ -2,7 +2,7 @@
 
 namespace mrssoft\sms;
 
-class Response
+final class Response
 {
     public ?string $error = null;
     public ?string $id = null;

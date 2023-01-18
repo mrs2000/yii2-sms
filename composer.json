@@ -1,6 +1,5 @@
 {
     "name": "mrssoft/yii2-sms",
-    "version": "1.0.1",
     "description": "Extension for sending SMS",
     "type": "yii2-extension",
     "keywords": ["yii2","extension", "sms", "mts", "tele2"],

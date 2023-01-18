@@ -10,7 +10,7 @@ use SoapFault;
  * Extension for sending SMS through MTS Communicator M2M API
  * @version 2.0.0
  */
-class Sms extends \mrssoft\sms\Sms
+final class Sms extends \mrssoft\sms\Sms
 {
     public string $token;
 
