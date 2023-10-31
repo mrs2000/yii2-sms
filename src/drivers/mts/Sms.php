@@ -20,7 +20,7 @@ final class Sms extends \mrssoft\sms\Sms
 
     private SoapClient $client;
 
-    public function init()
+    public function init(): void
     {
         parent::init();
 

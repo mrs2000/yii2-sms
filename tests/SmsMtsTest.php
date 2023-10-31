@@ -1,11 +1,11 @@
 <?php
 
-namespace mrssoft\sms\tests;
+namespace tests;
 
 use mrssoft\sms\drivers\mts\Sms;
 
 final class SmsMtsTest extends TestBase
 {
-    protected $driver = 'mts';
-    protected $className = Sms::class;
+    protected string $driver = 'mts';
+    protected string $className = Sms::class;
 }

@@ -2,7 +2,7 @@
     "name": "mrssoft/yii2-sms",
     "description": "Extension for sending SMS",
     "type": "yii2-extension",
-    "keywords": ["yii2","extension", "sms", "mts", "tele2"],
+    "keywords": ["yii2","extension", "sms", "mts", "tele2", "sms-center"],
     "license": "MIT",
     "authors": [
         {
@@ -13,11 +13,12 @@
     "require": {
         "php": ">=8.0",
         "yiisoft/yii2": "*",
-        "guzzlehttp/guzzle": "^7.0"
+        "guzzlehttp/guzzle": "^7.0",
+        "ext-soap": "*"
     },
     "autoload": {
         "psr-4": {
-            "mrssoft\\sms\\": ""
+            "mrssoft\\sms\\": "src/"
         }
     }
 }

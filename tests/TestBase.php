@@ -1,14 +1,14 @@
 <?php
 
-namespace mrssoft\sms\tests;
+namespace tests;
 
 class TestBase extends \PHPUnit\Framework\TestCase
 {
-    private $params;
-    private $driverParams;
+    private array $params;
+    private array $driverParams;
 
-    protected $driver;
-    protected $className;
+    protected string $driver;
+    protected string $className;
 
     private function loadParams(string $filename): array
     {
@@ -21,11 +21,11 @@ class TestBase extends \PHPUnit\Framework\TestCase
         $this->driverParams = $this->loadParams('params.' . $this->driver . '.json');
     }
 
-    public function testSendMessage()
+    public function testSendMessage(): void
     {
         $driver = $this->className;
         $api = new $driver($this->driverParams);
-        $response = $api->sendMessage('Test ' . random_int(1, 1000), $this->params['phone'], $this->params['naming']);
+        $response = $api->sendMessage('Test ' . random_int(1, 1000), $this->params['phone'], $this->params['naming'] ?? null);
 
         self::assertEmpty($response->error);
     }

@@ -7,6 +7,7 @@ use yii\base\Component;
 abstract class Sms extends Component
 {
     abstract public function sendMessage(string $message, string $phone): Response;
+
     abstract public function sendMessages(string $message, array $phones): Response;
 
     protected function preparePhone(string $phone): string
@@ -24,6 +25,10 @@ abstract class Sms extends Component
 
     protected function prepareNaming(?string $naming = null): ?string
     {
-        return $naming ?? $this->naming;
+        if ($naming) {
+            return $naming;
+        }
+
+        return $this->naming ?? null;
     }
 }

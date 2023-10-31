@@ -5,6 +5,7 @@
             <directory suffix=".php">./tests</directory>
             <exclude>./tests/TestBase.php</exclude>
             <exclude>./tests/SmsMtsTest.php</exclude>
+            <exclude>./tests/SmsTele2Test.php</exclude>
         </testsuite>
     </testsuites>
 </phpunit>

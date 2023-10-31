@@ -18,7 +18,6 @@ final class Sms extends \mrssoft\sms\Sms
 
     /**
      * Timeout, seconds
-     * @var int
      */
     public int $timeout = 0;
 
@@ -58,7 +57,6 @@ final class Sms extends \mrssoft\sms\Sms
         return $result;
     }
 
-    /** @noinspection PhpSameParameterValueInspection */
     private function request(string $function, array $params): Response
     {
         $response = new Response();
