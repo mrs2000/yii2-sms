@@ -2,14 +2,13 @@
 
 namespace mrssoft\sms\drivers\tele2;
 
-use GuzzleHttp\Client;
 use mrssoft\sms\Response;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Extension for sending SMS through Tele2 SMS-Таргет HTTP API
- * @version 1.0.0
  */
-final class Sms extends \mrssoft\sms\Sms
+final class Sms extends \mrssoft\sms\SmsDriver
 {
     public string $login;
     public string $password;
@@ -22,7 +21,6 @@ final class Sms extends \mrssoft\sms\Sms
     public int $timeout = 0;
 
     /**
-     * The SendMessage function allows you to send a message to a subscriber connected to the service.
      * @param string $message
      * @param string $phone
      * @param null|string $naming
@@ -37,49 +35,31 @@ final class Sms extends \mrssoft\sms\Sms
         return $this->request('send_message', $params);
     }
 
-    /**
-     * The SendMessages function allows you to send the same messages to several subscribers connected to the service.
-     * @param string $message
-     * @param array $phones
-     * @param null|string $naming
-     * @return Response
-     */
-    public function sendMessages(string $message, array $phones, ?string $naming = null): Response
+    protected function createResponse(ResponseInterface $httpResponse): Response
     {
-        $result = new Response();
-        foreach ($phones as $phone) {
-            $result = $this->sendMessage($message, $phone, $naming);
-            if ($result->error) {
-                return $result;
+        if ($params = $this->responseParams($httpResponse)) {
+            $response = new Response();
+            if ($params['status'] == 'error') {
+                $response->error = $params['reason'];
+            } else {
+                $response->id = $params['result']['uid'];
             }
+            return $response;
         }
 
-        return $result;
+        return parent::createResponse($httpResponse);
     }
 
     private function request(string $function, array $params): Response
     {
-        $response = new Response();
-        $client = new Client();
+        $httpResponse = $this->httpClient()
+                             ->request('POST', $this->apiUrl . $function, [
+                                 'json' => $params,
+                                 'auth' => [$this->login, $this->password],
+                                 'timeout' => $this->timeout,
+                                 'verify' => false,
+                             ]);
 
-        $httpResponse = $client->request('POST', $this->apiUrl . $function, [
-            'json' => $params,
-            'auth' => [$this->login,  $this->password],
-            'timeout' => $this->timeout,
-            'verify' => false,
-        ]);
-
-        if ($httpResponse->getStatusCode() == 200) {
-            $json = json_decode($httpResponse->getBody(), true);
-            if ($json['status'] == 'error') {
-                $response->error = $json['reason'];
-            } else {
-                $response->id = $json['result']['uid'];
-            }
-        } else {
-            $response->error = 'Error send request.';
-        }
-
-        return $response;
+        return $this->createResponse($httpResponse);
     }
 }

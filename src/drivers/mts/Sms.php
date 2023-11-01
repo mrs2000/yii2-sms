@@ -8,9 +8,8 @@ use SoapFault;
 
 /**
  * Extension for sending SMS through MTS Communicator M2M API
- * @version 2.0.0
  */
-final class Sms extends \mrssoft\sms\Sms
+final class Sms extends \mrssoft\sms\SmsDriver
 {
     public string $token;
 
@@ -34,13 +33,6 @@ final class Sms extends \mrssoft\sms\Sms
         ]);
     }
 
-    /**
-     * The SendMessage function allows you to send a message to a subscriber connected to the service.
-     * @param string $message
-     * @param string $phone
-     * @param null|string $naming
-     * @return Response
-     */
     public function sendMessage(string $message, string $phone, ?string $naming = null): Response
     {
         $params['message'] = $message;
@@ -52,13 +44,6 @@ final class Sms extends \mrssoft\sms\Sms
         return $this->request('SendMessage', $params);
     }
 
-    /**
-     * The SendMessages function allows you to send the same messages to several subscribers connected to the service.
-     * @param string $message
-     * @param array $phones
-     * @param null|string $naming
-     * @return Response
-     */
     public function sendMessages(string $message, array $phones, ?string $naming = null): Response
     {
         $params['message'] = $message;

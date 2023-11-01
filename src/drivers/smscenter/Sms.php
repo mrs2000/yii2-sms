@@ -2,14 +2,13 @@
 
 namespace mrssoft\sms\drivers\smscenter;
 
-use GuzzleHttp\Client;
 use mrssoft\sms\Response;
+use Psr\Http\Message\ResponseInterface;
 
 /**
- * Extension for sending SMS through MTS Communicator M2M API
- * @version 2.0.0
+ * Extension for sending SMS through SmsCenter
  */
-final class Sms extends \mrssoft\sms\Sms
+final class Sms extends \mrssoft\sms\SmsDriver
 {
     public string $login;
     public string $password;
@@ -21,9 +20,6 @@ final class Sms extends \mrssoft\sms\Sms
      */
     public int $timeout = 0;
 
-    /**
-     * The SendMessage function allows you to send a message to a subscriber connected to the service.
-     */
     public function sendMessage(string $message, string $phone, ?string $naming = null): Response
     {
         $params['mes'] = $message;
@@ -35,9 +31,6 @@ final class Sms extends \mrssoft\sms\Sms
         return $this->request('rest/send/', $params);
     }
 
-    /**
-     * The SendMessages function allows you to send the same messages to several subscribers connected to the service.
-     */
     public function sendMessages(string $message, array $phones, ?string $naming = null): Response
     {
         $params['mes'] = $message;
@@ -49,30 +42,33 @@ final class Sms extends \mrssoft\sms\Sms
         return $this->request('rest/send/', $params);
     }
 
+    protected function createResponse(ResponseInterface $httpResponse): Response
+    {
+        if ($params = $this->responseParams($httpResponse)) {
+            $response = new Response();
+            if (isset($json['error'])) {
+                $response->error = $params['error'] . ' [code: ' . $params['error_code'] . ']';
+            } else {
+                $response->id = $params['id'];
+            }
+            return $response;
+        }
+
+        return parent::createResponse($httpResponse);
+    }
+
     private function request(string $function, array $params): Response
     {
-        $response = new Response();
-        $client = new Client();
-
         $params['login'] = $this->login;
         $params['psw'] = $this->password;
         $params['fmt'] = 3; //response JSON format
 
-        $httpResponse = $client->request('POST', $this->apiUrl . $function, [
-            'json' => $params
-        ]);
+        $httpResponse = $this->httpClient()
+                             ->request('POST', $this->apiUrl . $function, [
+                                 'json' => $params,
+                                 'timeout' => $this->timeout,
+                             ]);
 
-        if ($httpResponse->getStatusCode() === 200) {
-            $json = json_decode($httpResponse->getBody(), true);
-            if (isset($json['error'])) {
-                $response->error = $json['error'] . ' [code: ' . $json['error_code'] . ']';
-            } else {
-                $response->id = $json['id'];
-            }
-        } else {
-            $response->error = 'Error send request.';
-        }
-
-        return $response;
+        return $this->createResponse($httpResponse);
     }
 }
