@@ -8,7 +8,7 @@ use yii\base\Component;
 
 abstract class SmsDriver extends Component
 {
-    abstract public function sendMessage(string $message, string $phone): Response;
+    abstract public function sendMessage(string $message, string $phone, ?string $naming = null): Response;
 
     protected function preparePhone(string $phone): string
     {
