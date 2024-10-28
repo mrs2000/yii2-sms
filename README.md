@@ -36,8 +36,9 @@ Configuration:
     ...
     'sms' => [
         'class' => 'mrssoft\sms\drivers\tele2\Sms',
+        'apiUrl' => 'https://target.t2.ru/api/v2/',
         'login' => '',
-        'password' => '******',
+        'password' => '',
         'naming' => 'BRAND',
     ],
     ...
