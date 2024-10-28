@@ -13,7 +13,7 @@ final class Sms extends \mrssoft\sms\SmsDriver
     public string $login;
     public string $password;
     public string $naming;
-    public string $apiUrl = 'https://target.tele2.ru/api/v2/';
+    public string $apiUrl = 'https://target.t2.ru/api/v2/';
 
     /**
      * Timeout, seconds
